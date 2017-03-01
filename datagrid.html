@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据表格</title>
+    <link rel="stylesheet" href="../assets/easyui/themes/icon.css">
+    <link rel="stylesheet" href="../assets/easyui/themes/default/easyui.css">
+    <!--<link rel="stylesheet" href="../assets/easyui/themes/demo.css">-->
+    <script type="text/javascript" src="../assets/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/easyui/jquery.easyui.min.js"></script>
+
+</head>
+<body>
+<table id="dt"></table>
+<script>
+    $('#dt').datagrid({
+        singleSelect:true,
+        rownumbers:true,
+        fit: true,
+        pagination: true,
+        pagePosition: 'bottom',
+        pageNumber: "1",
+        pageSize: "10",
+        pageList: [10, 20, 30, 40, 50],
+        striped: true,
+        toolbar: [{
+            iconCls: 'icon-add',
+            text: "增加",
+            handler: function () {
+
+            }
+        },
+            {
+                iconCls: 'icon-edit',
+                text: "编辑",
+                handler: function () {
+
+                }
+            }, {
+                iconCls: 'icon-remove',
+                text: "删除",
+                handler: function () {
+                    var row=$('#dt').datagrid('getSelected');
+                    if(row){
+                        $.messager.confirm('提示','您确认想要删除记录吗？',function(r){
+                            if (r){
+                                $.messager.alert("提示","删除成功")
+                        }
+                        });
+                    }else {
+                        $.messager.alert("提示","您未选中",'warning')
+                    }
+                }
+            }],
+        columns: [[
+            {field: "name", title: "姓名", width: 100, align: "center", halign: "center"},
+            {field: "sex", title: "性别", width: 100, align: "center", halign: "center"},
+            {field: "age", title: "年龄", width: 100, align: "center", halign: "center"},
+            {field: "head", title: "头像", width: 100, align: "center", halign: "center",
+                formatter: function (value, row, index) {
+                    return value && '<img width="100px" height="100px" src="' + value + '">';
+                }
+            }
+        ]],
+        data: [
+            {"name": "李东海", "sex": "男", "age": "31", "head": "http://127.0.0.1/practice/test/image/filehelper_1487064003736_5.png"},
+            {"name": "李赫宰", "sex": "男", "age": "31", "head": "http://127.0.0.1/practice/test/image/filehelper_1487064092940_68.png"}
+        ]
+    })
+</script>
+</body>
+</html>
